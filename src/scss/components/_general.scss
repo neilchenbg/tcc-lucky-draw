@@ -1,0 +1,31 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background: url('../images/bg.png') no-repeat center bottom;
+  background-size: auto 100%;
+}
+.title {
+  width: 100%;
+  top: 20px;
+  left: 0;
+  position: absolute;
+  z-index: 100;
+  @include RWD(pad_landscape) {
+    width: 60%;
+    top: 50px;
+    right: 20px;
+    left: auto;
+  }
+}
+.trophy {
+  width: 100%;
+  top: 60%;
+  left: 0;
+  position: absolute;
+  @include RWD(pad_landscape) {
+    width: auto;
+    height: 90%;
+    top: 5%;
+    left: -30px;
+  }
+}
