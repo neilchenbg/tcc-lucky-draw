@@ -87,6 +87,15 @@ module.exports = function(grunt) {
         ]
       }
     },
+    compass: {
+      dist: {
+        options: {
+          sourcemap: true,
+          sassDir: '<%= dir.src %>scss/',
+          cssDir: '<%= dir.dist %>css/'
+        }
+      }
+    },
     watch: {
       js: {
         files: ['<%= dir.src %>js/**/*.js'],
@@ -101,6 +110,7 @@ module.exports = function(grunt) {
   
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -124,7 +134,14 @@ module.exports = function(grunt) {
     'copy:www',
     'concat:dist',
     'uglify:dist',
+    'compass:dist',
     'clean:builded'
+  ]);
+
+  grunt.registerTask('c', [
+    'copy:tpls',
+    'copy:www',
+    'compass:dist'
   ]);
 
   grunt.registerTask('j', [
