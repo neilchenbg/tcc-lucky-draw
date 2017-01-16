@@ -5,7 +5,8 @@ define('view/app',
     'require-text!tpls/app.html',
     'require-text!tpls/components/joinMembers.html',
     'require-text!tpls/components/luckyDrawButtons.html',
-    'require-text!tpls/components/nominateMembers.html'
+    'require-text!tpls/components/nominateMembers.html',
+    'require-css!css/style.css'
   ],
   function(BhViewBase, I18n, htmlMain, htmlJoinMembers, htmlLuckyDrawButtons, htmlNominateMembers) {
     "use strict";
