@@ -2,9 +2,12 @@ define('view/app',
   [
     'bh/view/base',
     'require-i18n!nls/view.app',
-    'require-text!tpls/app.html'
+    'require-text!tpls/app.html',
+    'require-text!tpls/components/joinMembers.html',
+    'require-text!tpls/components/luckyDrawButtons.html',
+    'require-text!tpls/components/nominateMembers.html'
   ],
-  function(BhViewBase, I18n, htmlMain) {
+  function(BhViewBase, I18n, htmlMain, htmlJoinMembers, htmlLuckyDrawButtons, htmlNominateMembers) {
     "use strict";
 
     return BhViewBase.extend({
@@ -24,7 +27,13 @@ define('view/app',
 
         context
           ._setMainHtml(htmlMain)
-          .render();
+          ._setComponent('joinMembers', htmlJoinMembers)
+          ._setComponent('luckyDrawButtons', htmlLuckyDrawButtons)
+          ._setComponent('nominateMembers', htmlNominateMembers)
+          .render()
+          .renderComponent('joinMembers')
+          .renderComponent('luckyDrawButtons')
+          .renderComponent('nominateMembers');
       }
     });
   }
