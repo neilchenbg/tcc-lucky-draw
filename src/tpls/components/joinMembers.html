@@ -1,17 +1,33 @@
-<div>參加名單</div>
-<button>增加</button>
+{{#joinMembers}}
+<form data-bh-entry="addMemberForm">
+  <input data-bh-entry="memberName" type="text">
+  <button type="button" data-bh-func="AddMember">{{i18n.BTN_ADD_MEMBER}}</button>
+</form>
+  {{#hasList}}
 <ul>
+    {{#list}}
   <li>
-    <input type="checkbox" checked>
-    <label for="">Cloud</label>
+    <input id="member_{{id}}" type="checkbox"{{#join}} checked{{/join}}
+      data-bh-func="ToggleJoin"
+      data-bh-param-id="{{id}}"
+    >
+    <label for="member_{{id}}">{{name}}</label>
+    <button type="button"
+      data-bh-func="removeMember"
+      data-bh-param-id="{{id}}"
+    >{{i18n.BTN_REMOVE_MEMBER}}</button>
   </li>
-  <li>
-    <input type="checkbox" checked>
-    <label for="">Cloud</label>
-  </li>
+    {{/list}}
 </ul>
+  {{/hasList}}
+  {{^hasList}}
+<p>{{i18n.TEXT_MEMBER_EMPTY}}</p>
+  {{/hasList}}
 <div class="winner-random">
-  中獎人數隨機
-  <input type="checkbox">
+  {{i18n.LABEL_SETTING_RANDOM}}
+  <input type="checkbox"{{#settingRandom}} checked{{/settingRandom}}
+    data-bh-func="ToogleSettingRandom"
+  >
   <label class="switch"></label>
 </div>
+{{/joinMembers}}
