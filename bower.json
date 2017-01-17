@@ -16,6 +16,7 @@
     "jquery": "^3.1.1",
     "underscore": "^1.8.3",
     "backbone": "^1.3.3",
+    "backbone.localStorage": "^1.1.16",
     "mustache.js": "mustache#^2.3.0",
     "requirejs": "^2.3.2",
     "i18n": "requirejs-i18n#^2.0.6",

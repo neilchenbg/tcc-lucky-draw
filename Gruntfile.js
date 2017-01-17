@@ -45,6 +45,8 @@ module.exports = function(grunt) {
           {src: '<%= dir.vendor %>underscore/underscore-min.js', dest: '<%= dir.distVendor %>underscore-min.js'},
           // Backbone
           {src: '<%= dir.vendor %>backbone/backbone-min.js', dest: '<%= dir.distVendor %>backbone-min.js'},
+          // Backbone LocalStorage
+          {src: '<%= dir.vendor %>backbone.localStorage/backbone.localStorage-min.js', dest: '<%= dir.distVendor %>backbone.localStorage-min.js'},
           // Mustache
           {src: '<%= dir.vendor %>mustache.js/mustache.min.js', dest: '<%= dir.distVendor %>mustache.min.js'},
           // jQuery
