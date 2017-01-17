@@ -4,13 +4,13 @@ define('services/member',
     "use strict";
 
     if (!Store2.has('_member')) {
-      Store2('_member', []);
+      Store2.set('_member', []);
     }
 
-    var _storage = Store2('_member');
+    var _storage = Store2.get('_member');
 
     var _sync = function() {
-      Store2('_member', _storage);
+      Store2.set('_member', _storage);
     };
 
     var getList = function() {

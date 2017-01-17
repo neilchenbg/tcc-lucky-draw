@@ -1,6 +1,6 @@
 define('view/app',
   [
-    'bh/view/base', 'bh/util/log', 'services/ui', 'services/member',
+    'bh/view/base', 'bh/util/log', 'services/ui', 'services/member', 'services/setting',
     'require-i18n!nls/view.app',
     'require-text!tpls/app.html',
     'require-text!tpls/components/joinMembers.html',
@@ -9,7 +9,7 @@ define('view/app',
     'require-css!css/style.css'
   ],
   function(
-    BhViewBase, BhUtilLog, ServiceUi, ServiceMember,
+    BhViewBase, BhUtilLog, ServiceUi, ServiceMember, ServiceSetting,
     I18n,
     htmlMain,
     htmlJoinMembers,
@@ -26,6 +26,7 @@ define('view/app',
       _setModelDefault: function() {
         return {
           i18n: I18n,
+          settingRandom: ServiceSetting.get('random'),
           joinMembers: {
             hasList: ServiceMember.hasList(),
             list: ServiceMember.getList()
@@ -97,6 +98,14 @@ define('view/app',
         });
       },
 
+      _evToggleSettingRandom: function(e, $button) {
+        var context = this,
+            model = context.getModelInstance();
+
+        ServiceSetting.set('random', $button.prop('checked'));
+        model.set('settingRandom', ServiceSetting.get('random'));
+      },
+
       events: {
         'click [data-bh-func="AddMember"]': function(e) {
           e.stopPropagation();
@@ -109,6 +118,10 @@ define('view/app',
         'click [data-bh-func="removeMember"][data-bh-param-id]': function(e) {
           e.stopPropagation();
           this._evRemoveMember(e, $(e.currentTarget));
+        },
+        'click [data-bh-func="ToogleSettingRandom"]': function(e) {
+          e.stopPropagation();
+          this._evToggleSettingRandom(e, $(e.currentTarget));
         }
       },
 
@@ -120,6 +133,10 @@ define('view/app',
         var model = context.getModelInstance();
 
         context.listenTo(model, 'change:joinMembers', function() {
+          context.renderComponent('joinMembers');
+        });
+
+        context.listenTo(model, 'change:settingRandom', function() {
           context.renderComponent('joinMembers');
         });
 
