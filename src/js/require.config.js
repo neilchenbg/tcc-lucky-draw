@@ -4,7 +4,8 @@ require.config({
     'backbone': 'vendor/backbone-min',
     'backbone/localstorage': 'vendor/backbone.localStorage-min',
     'mustache': 'vendor/mustache.min',
-    'jquery': 'vendor/jquery.min'
+    'jquery': 'vendor/jquery.min',
+    'store2': 'vendor/store2.min'
   },
   map: {
     '*': {
