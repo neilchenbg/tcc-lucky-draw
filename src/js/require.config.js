@@ -2,6 +2,7 @@ require.config({
   paths: {
     'underscore': 'vendor/underscore-min',
     'backbone': 'vendor/backbone-min',
+    'backbone/localstorage': 'vendor/backbone.localStorage-min',
     'mustache': 'vendor/mustache.min',
     'jquery': 'vendor/jquery.min'
   },
