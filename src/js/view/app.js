@@ -1,6 +1,6 @@
 define('view/app',
   [
-    'bh/view/base',
+    'bh/view/base', 'services/member',
     'require-i18n!nls/view.app',
     'require-text!tpls/app.html',
     'require-text!tpls/components/joinMembers.html',
@@ -8,7 +8,7 @@ define('view/app',
     'require-text!tpls/components/nominateMembers.html',
     'require-css!css/style.css'
   ],
-  function(BhViewBase, I18n, htmlMain, htmlJoinMembers, htmlLuckyDrawButtons, htmlNominateMembers) {
+  function(BhViewBase, ServiceMember, I18n, htmlMain, htmlJoinMembers, htmlLuckyDrawButtons, htmlNominateMembers) {
     "use strict";
 
     return BhViewBase.extend({
