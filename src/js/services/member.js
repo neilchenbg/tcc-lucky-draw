@@ -17,6 +17,30 @@ define('services/member',
       return _storage;
     };
 
+    var getJoinMemberList = function() {
+      var newList = [];
+
+      for (var i = 0, length = _storage.length; i < length; i ++) {
+        if (_storage[i].join) {
+          newList.push(_storage[i]);
+        }
+      }
+
+      return newList;
+    };
+
+    var getJoinMemberCount = function() {
+      var count = 0;
+
+      for (var i = 0, length = _storage.length; i < length; i ++) {
+        if (_storage[i].join) {
+          count ++;
+        }
+      }
+
+      return count;
+    };
+
     var get = function(id) {
       for (var i = 0, length = _storage.length; i < length; i ++) {
         if (_storage[i].id == id) {
@@ -76,6 +100,8 @@ define('services/member',
 
     return {
       getList: getList,
+      getJoinMemberList: getJoinMemberList,
+      getJoinMemberCount: getJoinMemberCount,
       get: get,
       add: add,
       edit: edit,

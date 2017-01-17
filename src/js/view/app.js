@@ -1,6 +1,6 @@
 define('view/app',
   [
-    'bh/view/base', 'bh/util/log', 'services/ui', 'services/member', 'services/setting',
+    'inc', 'bh/view/base', 'bh/util/log', 'services/ui', 'services/member', 'services/setting',
     'require-i18n!nls/view.app',
     'require-text!tpls/app.html',
     'require-text!tpls/components/joinMembers.html',
@@ -9,7 +9,7 @@ define('view/app',
     'require-css!css/style.css'
   ],
   function(
-    BhViewBase, BhUtilLog, ServiceUi, ServiceMember, ServiceSetting,
+    Inc, BhViewBase, BhUtilLog, ServiceUi, ServiceMember, ServiceSetting,
     I18n,
     htmlMain,
     htmlJoinMembers,
@@ -106,6 +106,27 @@ define('view/app',
         model.set('settingRandom', ServiceSetting.get('random'));
       },
 
+      _evNominees: function(e, $button) {
+        var memberCount = ServiceMember.getJoinMemberCount(),
+            buttonMax = 0;
+
+        if (memberCount < 2) {
+          ServiceUi.showAlert(I18n.ERROR_JOIN_MEMBER_COUNT);
+        } else {
+          buttonMax = Math.floor(memberCount / 2);
+
+          if (buttonMax > Inc.MAX_NOMINEES_COUNT) {
+            buttonMax = Inc.MAX_NOMINEES_COUNT;
+          }
+
+          var joinMemberList = ServiceMember.getJoinMemberList().shuffle();
+          
+          if (ServiceSetting.get('random')) {
+            
+          }
+        }
+      },
+
       events: {
         'click [data-bh-func="AddMember"]': function(e) {
           e.stopPropagation();
@@ -122,6 +143,10 @@ define('view/app',
         'click [data-bh-func="ToogleSettingRandom"]': function(e) {
           e.stopPropagation();
           this._evToggleSettingRandom(e, $(e.currentTarget));
+        },
+        'click [data-bh-func="Nominees"]': function(e) {
+          e.stopPropagation();
+          this._evNominees(e, $(e.currentTarget));
         }
       },
 

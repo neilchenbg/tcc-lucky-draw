@@ -9,6 +9,7 @@ define({
     'SUCCESS_REMOVE_MEMBER': '已經送去南極了',
     'CONFIRM_ADD_JOIN_MEMBER': '確定要讓這位大德參加抽獎?',
     'CONFIRM_REMOVE_JOIN_MEMBER': '確定要讓這位大德退出抽獎?',
-    'ERROR_MEMBER_NOTFOUND': '找不到編號 {0} 抽獎人'
+    'ERROR_MEMBER_NOTFOUND': '找不到編號 {0} 抽獎人',
+    'ERROR_JOIN_MEMBER_COUNT': '靠，不到兩個人是要玩個雕喔'
   }
 });
