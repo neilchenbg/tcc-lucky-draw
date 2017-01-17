@@ -1,7 +1,9 @@
 *, body {
   font: #{$font-size}/#{$font-line-height} $font-family;
+  letter-spacing: 1px;
   box-sizing: border-box;
-  transition: all .5s ease-in-out;
+  transition: all .3s ease-in-out;
+  outline: none;
 }
 body {
   overflow: hidden;
@@ -24,4 +26,7 @@ a {
   &:after {
     clear: both;
   }
+}
+.hide {
+  display: none;
 }

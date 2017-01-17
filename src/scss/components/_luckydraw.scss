@@ -1,0 +1,11 @@
+.lucky-draw {
+  right: 0;
+  bottom: 120px;
+  left: 0;
+  text-align: center;
+  position: absolute;
+  z-index: 1;
+  @include RWD(pad_landscape) {
+    bottom: 20px;
+  }
+}

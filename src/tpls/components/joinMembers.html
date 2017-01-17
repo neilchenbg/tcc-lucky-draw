@@ -1,33 +1,36 @@
 {{#joinMembers}}
+<div class="setting-title">參加人員</div>
 <form data-bh-entry="addMemberForm">
-  <input data-bh-entry="memberName" type="text">
-  <button type="button" data-bh-func="AddMember">{{i18n.BTN_ADD_MEMBER}}</button>
+  <input type="text" class="input-add" data-bh-entry="memberName">
+  <button type="button" class="btn-add fa fa-plus" data-bh-func="AddMember"></button>
 </form>
   {{#hasList}}
-<ul>
+<ul class="member-list">
     {{#list}}
-  <li>
-    <input id="member_{{id}}" type="checkbox"{{#join}} checked{{/join}}
+  <li class="item">
+    <input type="checkbox" id="member_{{id}}" class="checkbox-name"{{#join}} checked{{/join}}
       data-bh-func="ToggleJoin"
       data-bh-param-id="{{id}}"
     >
-    <label for="member_{{id}}">{{name}}</label>
-    <button type="button"
+    <label for="member_{{id}}" class="label-name">{{name}}</label>
+    <button type="button" class="btn-icon btn-del fa fa-times"
       data-bh-func="removeMember"
       data-bh-param-id="{{id}}"
-    >{{i18n.BTN_REMOVE_MEMBER}}</button>
+    ></button>
   </li>
     {{/list}}
 </ul>
   {{/hasList}}
   {{^hasList}}
-<p>{{i18n.TEXT_MEMBER_EMPTY}}</p>
+<p class="text-empty">{{i18n.TEXT_MEMBER_EMPTY}}</p>
   {{/hasList}}
 <div class="winner-random">
   {{i18n.LABEL_SETTING_RANDOM}}
-  <input type="checkbox"{{#settingRandom}} checked{{/settingRandom}}
-    data-bh-func="ToogleSettingRandom"
-  >
-  <label class="switch"></label>
+  <div class="switch">
+    <input type="checkbox" class="checkbox-switch"{{#settingRandom}} checked{{/settingRandom}}
+      data-bh-func="ToogleSettingRandom"
+    >
+    <label class="slide"></label>
+  </div>
 </div>
 {{/joinMembers}}

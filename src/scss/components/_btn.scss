@@ -1,0 +1,36 @@
+//nominees
+.btn-nominees {
+  width: 437px;
+  height: 142px;
+  top: 50%;
+  left: 50%;
+  margin: -71px 0 0 -218px;
+  font-size: 4rem;
+  line-height: 142px;
+  background-image: url("../images/btn.png");
+  position: absolute;
+  @include RWD(pad_landscape) {
+    left: 45%;
+    margin-left: -350px;
+  }
+}
+
+//lucky draw
+.btn-lucky-draw {
+  width: 120px;
+  margin: 0 10px;
+  font-size: 6rem;
+  line-height: 120px;
+  background-image: url("../images/btn-circle.png");
+  background-size: 100% auto;
+}
+
+//function
+.btn-reload {
+  top: 0;
+  left: 0;
+}
+.btn-setting {
+  top: 0;
+  right: 0;
+}

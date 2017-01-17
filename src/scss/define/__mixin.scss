@@ -1,14 +1,21 @@
 //RWD breakpoint
 @mixin RWD($media) {
-  @if $media == pad_landscape {
+  @if $media == desktop {
+    @media only screen and (min-width: $screen-xlg-min) {
+      @content;
+    }
+  }
+  @else if $media == pad_landscape {
     @media only screen and (min-width: $screen-lg-min) {
       @content;
     }
-  } @else if $media == pad_portrait {
+  }
+  @else if $media == pad_portrait {
     @media only screen and (min-width: $screen-md-min) {
       @content;
     }
-  } @else if $media == mobile {
+  }
+  @else if $media == mobile {
     @media (max-width: $screen-sm-max){
       @content;
     }

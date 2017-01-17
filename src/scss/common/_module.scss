@@ -1,0 +1,99 @@
+//btn yellow
+.btn {
+  color: $c-brown;
+  font-weight: bold;
+  font-family: $font-family-cursive;
+  text-align: center;
+  background: transparent no-repeat;
+  border: none;
+  text-shadow: -3px -3px rgba(white,.7);
+  overflow: hidden;
+  position: relative;
+  &:before {
+    content: "\0020";
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    left: 50%;
+    margin: -25px 0 0 -25px;
+    border-radius: 100%;
+    background: rgba(white,.3);
+    opacity: 0;
+    position: absolute;
+  }
+  &:hover {
+    color: darken($c-brown,5);
+    text-shadow: 3px 3px rgba(white,.7);
+    &:before {
+      animation: btn_hover .5s ease-in-out;
+    }
+  }
+}
+@keyframes btn_hover {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(10,10);
+    opacity: 0;
+  }
+}
+
+//btn icon
+.btn-icon {
+  color: rgba(white,.7);
+  font-size: 2rem;
+  padding: 16px;
+  background: none;
+  border: none;
+  position: absolute;
+  z-index: 99;
+}
+
+//switch
+.switch {
+  $width: 45px;
+  $height: 25px;
+  width: $width;
+  height: $height;
+  position: relative;
+  .checkbox-switch {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    z-index: 1;
+    &:checked {
+      & + .slide {
+        border-color: $c-yellow;
+        &:after {
+          transform: translateX(20px);
+          background: $c-yellow;
+        }
+      }
+    }
+  }
+  .slide {
+    width: 100%;
+    height: 100%;
+    border: 2px solid lighten(black,70);
+    border-radius: $height;
+    position: absolute;
+    &:after {
+      content: "\0020";
+      width: $height;
+      height: $height;
+      top: -2px;
+      left: -2px;
+      border-radius: 100%;
+      background: lighten(black,70);
+      transition: transform .3s ease-in-out;
+      position: absolute;
+    }
+  }
+}

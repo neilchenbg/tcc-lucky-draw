@@ -2,6 +2,9 @@
 @import "compass/css3";
 @import "compass/utilities/general/hacks";
 
+//import
+@import url("https://fonts.googleapis.com/css?family=Molle:400i|Ubuntu");
+
 //define
 @import "define/__mixin.scss";
 @import "define/__variables.scss";
@@ -9,6 +12,13 @@
 //basic
 @import "common/_reset.scss";
 @import "common/_base.scss";
+@import "common/_module.scss";
 
 //components
 @import "components/_general.scss";
+@import "components/_btn.scss";
+@import "components/_star.scss";
+@import "components/_nominees.scss";
+@import "components/_luckydraw.scss";
+@import "components/_setting.scss";
+@import "components/_spotlight.scss";
