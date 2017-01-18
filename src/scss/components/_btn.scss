@@ -20,24 +20,36 @@
   width: 120px;
   margin: 0 10px;
   font-size: 6rem;
-  line-height: 120px;
+  line-height: 122px;
   background-image: url("../images/btn-circle.png");
   background-size: 100% auto;
-  &.winner, &.failed {
+  &:after {
+    content: "\0020";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 100%;
+    opacity: 0;
+    position: absolute;
+  }
+  &.active, &.winner, &.failed {
     &:after {
-      content: "\0020";
-      width: 100%;
-      height: 100%;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      border-radius: 100%;
       opacity: .5;
-      position: absolute;
+    }
+  }
+  &.active {
+    filter: grayscale(.7) blur(1px);
+    &:after {
+      box-shadow: 0 0 30px $c-yellow;
+      background: $c-yellow;
+      mix-blend-mode: multiply;
     }
   }
   &.winner {
+    transform: scale(1.1,1.1);
     &:after {
       box-shadow: 0 0 30px white;
       background: white;
@@ -46,7 +58,7 @@
   }
   &.failed {
     transform: scale(.7,.7);
-    filter: blur(3px);
+    filter: grayscale(.5) blur(3px);
     opacity: .7;
     &:after {
       box-shadow: 0 0 20px black;
