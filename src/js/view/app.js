@@ -127,6 +127,27 @@ define('view/app',
         }
       },
 
+      _evToggleSetting: function(e, $button) {
+        var context = this,
+            $setting = $('[data-bh-entry="toggleSetting"]', context.el);
+
+        $setting.each(function() {
+          if ($(this).hasClass('container')) {
+            if ($(this).hasClass('open-setting')) {
+              $(this).removeClass('open-setting');
+            } else {
+              $(this).addClass('open-setting');
+            }
+          } else {
+            if ($(this).hasClass('active')) {
+              $(this).removeClass('active');
+            } else {
+              $(this).addClass('active');
+            }
+          }
+        });
+      },
+
       events: {
         'click [data-bh-func="AddMember"]': function(e) {
           e.stopPropagation();
@@ -147,6 +168,10 @@ define('view/app',
         'click [data-bh-func="Nominees"]': function(e) {
           e.stopPropagation();
           this._evNominees(e, $(e.currentTarget));
+        },
+        'click [data-bh-func="ToggleSetting"]': function(e) {
+          e.stopPropagation();
+          this._evToggleSetting(e, $(e.currentTarget));
         }
       },
 
