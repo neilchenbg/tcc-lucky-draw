@@ -256,23 +256,25 @@ define('view/app',
         });
 
         if (luckyDrawButtonsActiveCount == luckyDrawButtons.length) {
-          model.set('nominees', {
-            animate: true,
-            processing: true
-          });
-
           setTimeout(function() {
             model.set('nominees', {
-              animate: false,
+              animate: true,
               processing: true
             });
-            model.set('luckyDrawButtons', {
-              active: luckyDrawButtonsActiveCount,
-              show: true,
-              showWinner: true,
-              list: luckyDrawButtons
-            });
-          }, Inc.WINNER_ANIMATE_SEC * 1000);
+
+            setTimeout(function() {
+              model.set('nominees', {
+                animate: false,
+                processing: true
+              });
+              model.set('luckyDrawButtons', {
+                active: luckyDrawButtonsActiveCount,
+                show: true,
+                showWinner: true,
+                list: luckyDrawButtons
+              });
+            }, Inc.WINNER_ANIMATE_SEC * 1000);
+          }, 1000);
         }
       },
 
