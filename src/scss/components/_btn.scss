@@ -23,6 +23,37 @@
   line-height: 120px;
   background-image: url("../images/btn-circle.png");
   background-size: 100% auto;
+  &.winner, &.failed {
+    &:after {
+      content: "\0020";
+      width: 100%;
+      height: 100%;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border-radius: 100%;
+      opacity: .5;
+      position: absolute;
+    }
+  }
+  &.winner {
+    &:after {
+      box-shadow: 0 0 30px white;
+      background: white;
+      mix-blend-mode: overlay;
+    }
+  }
+  &.failed {
+    transform: scale(.7,.7);
+    filter: blur(3px);
+    opacity: .7;
+    &:after {
+      box-shadow: 0 0 20px black;
+      background: black;
+      mix-blend-mode: multiply;
+    }
+  }
 }
 
 //function

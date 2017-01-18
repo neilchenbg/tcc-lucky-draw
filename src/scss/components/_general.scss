@@ -3,7 +3,7 @@
   height: 100vh;
   background: url("../images/bg.png") no-repeat center bottom;
   background-size: auto 100%;
-  transition: none;
+  transition: transform .3s ease-in-out;
   overflow: hidden;
   position: relative;
   @include RWD(desktop) {
