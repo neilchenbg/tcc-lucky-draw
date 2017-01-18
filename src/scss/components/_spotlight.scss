@@ -12,7 +12,8 @@
     width: 300px;
     height: 300px;
     border-radius: 100%;
-    background: white;
+    background: lighten($c-yellow,30);
+    mix-blend-mode: screen;
     position: absolute;
     &:nth-child(1) {
       top: -50px;
@@ -23,12 +24,12 @@
     &:nth-child(2) {
       top: 50%;
       left: -50px;
-      animation: spotlight_motion_left 2s linear infinite;
+      animation: spotlight_motion_left 2s ease-in infinite;
     }
     &:nth-child(3) {
       top: 50%;
       right: -50px;
-      animation: spotlight_motion_right 2.2s linear infinite;
+      animation: spotlight_motion_right 2.2s ease-out infinite;
     }
   }
 }
@@ -36,29 +37,35 @@
   0%, 100% {
     transform: scale(2,2) translate(0,0);
     opacity: .3;
+    filter: blur(3px);
   }
-  50% {
+  49% {
     transform: scale(1,1) translate(0,300px);
     opacity: .5;
+    filter: blur(1px);
   }
 }
 @keyframes spotlight_motion_left {
   0%, 100% {
     transform: scale(2,2) translate(0,0);
     opacity: .3;
+    filter: blur(3px);
   }
   50% {
-    transform: scale(1,1) translate(300px,0);
+    transform: scale(1,1) translate(400px,-150px);
     opacity: .5;
+    filter: blur(1px);
   }
 }
 @keyframes spotlight_motion_right {
   0%, 100% {
     transform: scale(2,2) translate(0,0);
     opacity: .3;
+    filter: blur(3px);
   }
-  50% {
-    transform: scale(1,1) translate(-300px,0);
+  51% {
+    transform: scale(1,1) translate(-400px,-150px);
     opacity: .5;
+    filter: blur(1px);
   }
 }
