@@ -6,6 +6,7 @@ define('view/app',
     'require-text!tpls/components/joinMembers.html',
     'require-text!tpls/components/luckyDrawButtons.html',
     'require-text!tpls/components/nominateMembers.html',
+    'require-text!tpls/components/nominees.html',
     'require-css!css/style.css'
   ],
   function(
@@ -14,7 +15,8 @@ define('view/app',
     htmlMain,
     htmlJoinMembers,
     htmlLuckyDrawButtons,
-    htmlNominateMembers
+    htmlNominateMembers,
+    htmlNominees
   ) {
     "use strict";
 
@@ -26,11 +28,13 @@ define('view/app',
       _setModelDefault: function() {
         return {
           i18n: I18n,
+          processing: false,
           settingRandom: ServiceSetting.get('random'),
           joinMembers: {
             hasList: ServiceMember.hasList(),
             list: ServiceMember.getList()
-          }
+          },
+          nominateMembers: []
         };
       },
 
@@ -109,21 +113,38 @@ define('view/app',
       },
 
       _evNominees: function(e, $button) {
-        var memberCount = ServiceMember.getJoinMemberCount(),
+        var context = this,
+            model = context.getModelInstance(),
+            memberCount = ServiceMember.getJoinMemberCount(),
             buttonMax = 0;
 
         if (memberCount < 2) {
           ServiceUi.showAlert(I18n.ERROR_JOIN_MEMBER_COUNT);
         } else {
+          model.set('processing', true);
+
           buttonMax = Math.floor(memberCount / 2);
 
           if (buttonMax > Inc.MAX_NOMINEES_COUNT) {
             buttonMax = Inc.MAX_NOMINEES_COUNT;
           }
 
-          var joinMemberList = ServiceMember.getJoinMemberList().shuffle();
+          var joinMemberList = ServiceMember.getJoinMemberList(),
+              nominateMembers = [],
+              destiny = [];
+
+          for (var i = 0; i < 10; i ++) {
+            destiny.push(_.clone(joinMemberList).shuffle());
+          }
+
+          destiny = destiny.shuffle().slice(0, 1)[0];
+          nominateMembers = destiny.slice(0, buttonMax);
+
+          model.set('nominateMembers', nominateMembers);
           
           if (ServiceSetting.get('random')) {
+            
+          } else {
             
           }
         }
@@ -188,15 +209,25 @@ define('view/app',
           context.renderComponent('joinMembers');
         });
 
+        context.listenTo(model, 'change:processing', function() {
+          context.renderComponent('nominees');
+        });
+
+        context.listenTo(model, 'change:nominateMembers', function() {
+          context.renderComponent('nominateMembers');
+        });
+
         context
           ._setMainHtml(htmlMain)
           ._setComponent('joinMembers', htmlJoinMembers)
           ._setComponent('luckyDrawButtons', htmlLuckyDrawButtons)
           ._setComponent('nominateMembers', htmlNominateMembers)
+          ._setComponent('nominees', htmlNominees)
           .render()
           .renderComponent('joinMembers')
           .renderComponent('luckyDrawButtons')
-          .renderComponent('nominateMembers');
+          .renderComponent('nominateMembers')
+          .renderComponent('nominees');
       }
     });
   }

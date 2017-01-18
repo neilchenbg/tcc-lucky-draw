@@ -1,10 +1,10 @@
-<div class="nominees hide">
+{{#processing}}
+<div class="nominees">
   <div class="text">The nominees are...</div>
   <ul class="list">
-    <li class="item">Cloud</li>
-    <li class="item">William</li>
-    <li class="item">Leo</li>
-    <li class="item">Arashis</li>
-    <li class="item">Ellen</li>
+    {{#nominateMembers}}
+    <li class="item">{{name}}</li>
+    {{/nominateMembers}}
   </ul>
 </div>
+{{/processing}}
