@@ -41,7 +41,9 @@ define('view/app',
             list: []
           },
           luckyDrawButtons: {
+            active: 0,
             show: false,
+            showWinner: false,
             list: []
           }
         };
@@ -155,7 +157,21 @@ define('view/app',
           nominateMembers = nominateDestiny.slice(0, buttonMax);
 
           if (ServiceSetting.get('random')) {
-            winnerCount = Math.ceil(Math.random() * (buttonMax - 1 + 1) + 1 - 1);
+            winnerCount = Math.ceil(Math.random() * buttonMax);
+          }
+
+          for (var i = 1; i <= buttonMax; i ++) {
+            if (i <= winnerCount) {
+              luckyDrawButtons.push({isWinner: true, active: false});
+            } else {
+              luckyDrawButtons.push({isWinner: false, active: false});
+            }
+          }
+
+          luckyDrawButtons.shuffle();
+
+          for (var i = 0, length = luckyDrawButtons.length; i < length; i ++) {
+            luckyDrawButtons[i].key = i + 1;
           }
 
           setTimeout(function() {
@@ -166,6 +182,12 @@ define('view/app',
             model.set('nominateMembers', {
               show: true,
               list: nominateMembers
+            });
+            model.set('luckyDrawButtons', {
+              active: 0,
+              show: true,
+              showWinner: false,
+              list: luckyDrawButtons
             });
           }, Inc.NOMINEES_ANIMATE_SEC * 1000)
         }
@@ -183,7 +205,8 @@ define('view/app',
           list: []
         });
         model.set('luckyDrawButtons', {
-          loaded: false,
+          show: false,
+          showWinner: false,
           list: []
         });
       },
@@ -207,6 +230,41 @@ define('view/app',
             }
           }
         });
+      },
+
+      _evSelectLuckyDraw: function(e, $button) {
+        var context = this,
+            model = context.getModelInstance(),
+            luckyDrawButtons = model.get('luckyDrawButtons').list,
+            luckyDrawButtonsActiveCount = 0;
+
+        for (var i = 0, length = luckyDrawButtons.length; i < length; i ++) {
+          if (luckyDrawButtons[i].key == $button.data('bhParamKey')) {
+            luckyDrawButtons[i].active = true;
+          }
+
+          if (luckyDrawButtons[i].active) {
+            luckyDrawButtonsActiveCount ++;
+          }
+        }
+
+        model.set('luckyDrawButtons', {
+          active: luckyDrawButtonsActiveCount,
+          show: true,
+          showWinner: false,
+          list: luckyDrawButtons
+        });
+
+        if (luckyDrawButtonsActiveCount == luckyDrawButtons.length) {
+          setTimeout(function() {
+            model.set('luckyDrawButtons', {
+              active: luckyDrawButtonsActiveCount,
+              show: true,
+              showWinner: true,
+              list: luckyDrawButtons
+            });
+          }, Inc.WINNER_ANIMATE_SEC * 1000);
+        }
       },
 
       events: {
@@ -237,6 +295,10 @@ define('view/app',
         'click [data-bh-func="ToggleSetting"]': function(e) {
           e.stopPropagation();
           this._evToggleSetting(e, $(e.currentTarget));
+        },
+        'click [data-bh-func="SelectLuckyDraw"][data-bh-param-key]': function(e) {
+          e.stopPropagation();
+          this._evSelectLuckyDraw(e, $(e.currentTarget));
         }
       },
 
@@ -251,12 +313,16 @@ define('view/app',
           context.renderComponent('joinMembers');
         });
 
-        context.listenTo(model, 'change:nominees', function() {
-          context.renderComponent('nominees');
-        });
-
         context.listenTo(model, 'change:nominateMembers', function() {
           context.renderComponent('nominateMembers');
+        });
+
+        context.listenTo(model, 'change:luckyDrawButtons', function() {
+          context.renderComponent('luckyDrawButtons');
+        });
+
+        context.listenTo(model, 'change:nominees', function() {
+          context.renderComponent('nominees');
         });
 
         context

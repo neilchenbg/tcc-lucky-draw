@@ -2,7 +2,7 @@
   {{#show}}
 <div class="lucky-draw">
     {{#list}}
-  <button class="btn btn-lucky-draw">{{key}}</button>
+  <button class="btn btn-lucky-draw{{#active}} active{{/active}}{{#showWinner}} {{#isWinner}}winner{{/isWinner}}{{^isWinner}}fail{{/isWinner}}{{/showWinner}}"{{^active}} data-bh-func="SelectLuckyDraw" data-bh-param-key="{{key}}"{{/active}}>{{key}}</button>
     {{/list}}
 </div>
   {{/show}}
