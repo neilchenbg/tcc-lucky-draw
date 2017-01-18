@@ -256,7 +256,16 @@ define('view/app',
         });
 
         if (luckyDrawButtonsActiveCount == luckyDrawButtons.length) {
+          model.set('nominees', {
+            animate: true,
+            processing: true
+          });
+
           setTimeout(function() {
+            model.set('nominees', {
+              animate: false,
+              processing: true
+            });
             model.set('luckyDrawButtons', {
               active: luckyDrawButtonsActiveCount,
               show: true,
