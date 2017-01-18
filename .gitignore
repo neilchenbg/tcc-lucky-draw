@@ -1,5 +1,7 @@
 /bower_components/
 /node_modules/
+/platforms/
+/plugins/
 
 /.sass-cache/
 /www/
