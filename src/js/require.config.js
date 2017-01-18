@@ -17,8 +17,8 @@ require.config({
   shim : {},
   config: {
     // i18n: {locale: 'zh-CN'}
-  },
-  urlArgs: "ts=" + (new Date()).getTime()
+  }
+  // urlArgs: "ts=" + (new Date()).getTime()
 });
 
 if (!String.prototype.format) {
