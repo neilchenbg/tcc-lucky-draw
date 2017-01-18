@@ -27,7 +27,7 @@
 <div class="winner-random">
   {{i18n.LABEL_SETTING_RANDOM}}
   <div class="switch">
-    <input type="checkbox" class="checkbox-switch"{{#settingRandom}} checked{{/settingRandom}}
+    <input type="checkbox" class="checkbox-switch"{{^settingRandom}} checked{{/settingRandom}}
       data-bh-func="ToogleSettingRandom"
     >
     <label class="slide"></label>

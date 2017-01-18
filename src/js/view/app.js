@@ -41,14 +41,18 @@ define('view/app',
             $field = $('input[data-bh-entry="memberName"]', $form);
 
         if ($form.length > 0 && $field.length > 0) {
-          ServiceMember.add($field.val());
-          model
-            .set('joinMembers', {
-              hasList: ServiceMember.hasList(),
-              list: ServiceMember.getList()
-            })
-            .trigger('change:joinMembers');
-          ServiceUi.showAlert(I18n.SUCCESS_ADD_MEMBER.format($field.val()));
+          if ($field.val() != '') {
+            ServiceMember.add($field.val());
+            model
+              .set('joinMembers', {
+                hasList: ServiceMember.hasList(),
+                list: ServiceMember.getList()
+              })
+              .trigger('change:joinMembers');
+            ServiceUi.showAlert(I18n.SUCCESS_ADD_MEMBER.format($field.val()));
+          } else {
+            ServiceUi.showAlert(I18n.ERROR_ADD_MEMBER);
+          }
         } else {
           _traceError('Unable to find form field!', {}, '_evAddMember');
         }
@@ -101,9 +105,7 @@ define('view/app',
       _evToggleSettingRandom: function(e, $button) {
         var context = this,
             model = context.getModelInstance();
-
-        ServiceSetting.set('random', $button.prop('checked'));
-        model.set('settingRandom', ServiceSetting.get('random'));
+        ServiceSetting.set('random', $button.prop('checked') ? false : true);
       },
 
       _evNominees: function(e, $button) {
@@ -183,10 +185,6 @@ define('view/app',
         var model = context.getModelInstance();
 
         context.listenTo(model, 'change:joinMembers', function() {
-          context.renderComponent('joinMembers');
-        });
-
-        context.listenTo(model, 'change:settingRandom', function() {
           context.renderComponent('joinMembers');
         });
 
