@@ -13,7 +13,7 @@
     height: 300px;
     border-radius: 100%;
     background: lighten($c-yellow,30);
-    mix-blend-mode: screen;
+    //mix-blend-mode: screen;
     position: absolute;
     &:nth-child(1) {
       top: -50px;

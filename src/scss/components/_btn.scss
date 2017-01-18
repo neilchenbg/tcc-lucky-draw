@@ -46,7 +46,7 @@
     &:after {
       box-shadow: 0 0 30px $c-yellow;
       background: $c-yellow;
-      mix-blend-mode: multiply;
+      //mix-blend-mode: multiply;
     }
   }
   &.winner {
@@ -54,7 +54,7 @@
     &:after {
       box-shadow: 0 0 30px white;
       background: white;
-      mix-blend-mode: overlay;
+      //mix-blend-mode: overlay;
     }
   }
   &.failed {
@@ -64,7 +64,7 @@
     &:after {
       box-shadow: 0 0 20px black;
       background: black;
-      mix-blend-mode: multiply;
+      //mix-blend-mode: multiply;
     }
   }
 }
