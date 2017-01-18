@@ -1,3 +1,4 @@
 define('inc', {
-  MAX_NOMINEES_COUNT: 5
+  MAX_NOMINEES_COUNT: 5,
+  NOMINEES_ANIMATE_SEC: 5
 });

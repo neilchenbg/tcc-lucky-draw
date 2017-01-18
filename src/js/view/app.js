@@ -34,6 +34,7 @@ define('view/app',
             hasList: ServiceMember.hasList(),
             list: ServiceMember.getList()
           },
+          nomineesAnimate: false,
           nominateMembers: []
         };
       },
@@ -122,6 +123,7 @@ define('view/app',
           ServiceUi.showAlert(I18n.ERROR_JOIN_MEMBER_COUNT);
         } else {
           model.set('processing', true);
+          model.set('nomineesAnimate', true);
 
           buttonMax = Math.floor(memberCount / 2);
 
@@ -140,7 +142,10 @@ define('view/app',
           destiny = destiny.shuffle().slice(0, 1)[0];
           nominateMembers = destiny.slice(0, buttonMax);
 
-          model.set('nominateMembers', nominateMembers);
+          setTimeout(function() {
+            model.set('nomineesAnimate', false);
+            model.set('nominateMembers', nominateMembers);
+          }, Inc.NOMINEES_ANIMATE_SEC * 1000)
           
           if (ServiceSetting.get('random')) {
             
@@ -148,6 +153,13 @@ define('view/app',
             
           }
         }
+      },
+
+      _evRefreshNominees: function(e, $button) {
+        var context = this,
+            model = context.getModelInstance();
+        model.set('processing', false);
+        model.set('nominateMembers', []);
       },
 
       _evToggleSetting: function(e, $button) {
@@ -192,6 +204,10 @@ define('view/app',
           e.stopPropagation();
           this._evNominees(e, $(e.currentTarget));
         },
+        'click [data-bh-func="RefreshNominees"]': function(e) {
+          e.stopPropagation();
+          this._evRefreshNominees(e, $(e.currentTarget));
+        },
         'click [data-bh-func="ToggleSetting"]': function(e) {
           e.stopPropagation();
           this._evToggleSetting(e, $(e.currentTarget));
@@ -210,6 +226,10 @@ define('view/app',
         });
 
         context.listenTo(model, 'change:processing', function() {
+          context.renderComponent('nominees');
+        });
+
+        context.listenTo(model, 'change:nomineesAnimate', function() {
           context.renderComponent('nominees');
         });
 
