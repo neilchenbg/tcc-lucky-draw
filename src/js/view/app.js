@@ -6,8 +6,7 @@ define('view/app',
     'require-text!tpls/components/joinMembers.html',
     'require-text!tpls/components/luckyDrawButtons.html',
     'require-text!tpls/components/nominateMembers.html',
-    'require-text!tpls/components/nominees.html',
-    'require-css!css/style.css'
+    'require-text!tpls/components/nominees.html'
   ],
   function(
     Inc, BhViewBase, BhUtilLog, ServiceUi, ServiceMember, ServiceSetting,
@@ -136,7 +135,7 @@ define('view/app',
             processing: true
           });
 
-          buttonMax = Math.floor(memberCount / 2);
+          buttonMax = Math.ceil(memberCount / 2);
 
           if (buttonMax > Inc.MAX_NOMINEES_COUNT) {
             buttonMax = Inc.MAX_NOMINEES_COUNT;
@@ -144,14 +143,20 @@ define('view/app',
 
           var joinMemberList = ServiceMember.getJoinMemberList(),
               nominateMembers = [],
-              destiny = [];
+              nominateDestiny = [],
+              luckyDrawButtons = [],
+              winnerCount = 1;
 
           for (var i = 0; i < 10; i ++) {
-            destiny.push(_.clone(joinMemberList).shuffle());
+            nominateDestiny.push(_.clone(joinMemberList).shuffle());
           }
 
-          destiny = destiny.shuffle().slice(0, 1)[0];
-          nominateMembers = destiny.slice(0, buttonMax);
+          nominateDestiny = nominateDestiny.shuffle().slice(0, 1)[0];
+          nominateMembers = nominateDestiny.slice(0, buttonMax);
+
+          if (ServiceSetting.get('random')) {
+            winnerCount = Math.ceil(Math.random() * (buttonMax - 1 + 1) + 1 - 1);
+          }
 
           setTimeout(function() {
             model.set('nominees', {
@@ -163,12 +168,6 @@ define('view/app',
               list: nominateMembers
             });
           }, Inc.NOMINEES_ANIMATE_SEC * 1000)
-          
-          if (ServiceSetting.get('random')) {
-            
-          } else {
-            
-          }
         }
       },
 
