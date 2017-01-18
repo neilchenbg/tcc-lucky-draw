@@ -1,10 +1,12 @@
-{{#processing}}
+{{#nominateMembers}}
+  {{#show}}
 <div class="nominees">
   <div class="text">The nominees are...</div>
   <ul class="list">
-    {{#nominateMembers}}
+    {{#list}}
     <li class="item">{{name}}</li>
-    {{/nominateMembers}}
+    {{/list}}
   </ul>
 </div>
-{{/processing}}
+  {{/show}}
+{{/nominateMembers}}

@@ -28,14 +28,23 @@ define('view/app',
       _setModelDefault: function() {
         return {
           i18n: I18n,
-          processing: false,
           settingRandom: ServiceSetting.get('random'),
           joinMembers: {
             hasList: ServiceMember.hasList(),
             list: ServiceMember.getList()
           },
-          nomineesAnimate: false,
-          nominateMembers: []
+          nominees: {
+            animate: false,
+            processing: false
+          },
+          nominateMembers: {
+            show: false,
+            list: []
+          },
+          luckyDrawButtons: {
+            show: false,
+            list: []
+          }
         };
       },
 
@@ -122,8 +131,10 @@ define('view/app',
         if (memberCount < 2) {
           ServiceUi.showAlert(I18n.ERROR_JOIN_MEMBER_COUNT);
         } else {
-          model.set('processing', true);
-          model.set('nomineesAnimate', true);
+          model.set('nominees', {
+            animate: true,
+            processing: true
+          });
 
           buttonMax = Math.floor(memberCount / 2);
 
@@ -143,8 +154,14 @@ define('view/app',
           nominateMembers = destiny.slice(0, buttonMax);
 
           setTimeout(function() {
-            model.set('nomineesAnimate', false);
-            model.set('nominateMembers', nominateMembers);
+            model.set('nominees', {
+              animate: false,
+              processing: true
+            });
+            model.set('nominateMembers', {
+              show: true,
+              list: nominateMembers
+            });
           }, Inc.NOMINEES_ANIMATE_SEC * 1000)
           
           if (ServiceSetting.get('random')) {
@@ -158,8 +175,18 @@ define('view/app',
       _evRefreshNominees: function(e, $button) {
         var context = this,
             model = context.getModelInstance();
-        model.set('processing', false);
-        model.set('nominateMembers', []);
+        model.set('nominees', {
+          animate: false,
+          processing: false
+        });
+        model.set('nominateMembers', {
+          show: false,
+          list: []
+        });
+        model.set('luckyDrawButtons', {
+          loaded: false,
+          list: []
+        });
       },
 
       _evToggleSetting: function(e, $button) {
@@ -225,11 +252,7 @@ define('view/app',
           context.renderComponent('joinMembers');
         });
 
-        context.listenTo(model, 'change:processing', function() {
-          context.renderComponent('nominees');
-        });
-
-        context.listenTo(model, 'change:nomineesAnimate', function() {
+        context.listenTo(model, 'change:nominees', function() {
           context.renderComponent('nominees');
         });
 

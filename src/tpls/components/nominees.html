@@ -1,14 +1,16 @@
-{{^processing}}
+{{#nominees}}
+  {{^processing}}
 <button class="btn btn-nominees" data-bh-func="Nominees">Nominees</button>
-{{/processing}}
-{{#processing}}
+  {{/processing}}
+  {{#processing}}
 <button class="btn-icon btn-reload fa fa-refresh" data-bh-func="RefreshNominees"></button>
-{{/processing}}
+  {{/processing}}
 <button class="btn-icon btn-setting fa fa-cog" data-bh-func="ToggleSetting"></button>
-{{#nomineesAnimate}}
+  {{#animate}}
 <div class="spotlight">
   <div class="item"></div>
   <div class="item"></div>
   <div class="item"></div>
 </div>
-{{/nomineesAnimate}}
+  {{/animate}}
+{{/nominees}}
