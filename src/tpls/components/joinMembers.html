@@ -35,7 +35,8 @@
 </div>
 <div class="random-seed" data-bh-entry="randomSeedForm">
   <div class="setting-title">{{i18n.LABEL_RANDOM_SEED}}</div>
-  <input type="text" class="input-add" placeholder="{{i18n.PLACEHOLDER_RANDOM_SEED}}" value="{{settingRandomSeed}}" data-bh-entry="randomSeed">
+  <input type="text" class="input-seed" placeholder="{{i18n.PLACEHOLDER_RANDOM_SEED}}" value="{{settingRandomSeed}}" data-bh-entry="randomSeed">
   <button type="button" class="btn-add fa fa-check" data-bh-func="SaveSettingRandomSeed"></button>
+  <button type="button" class="btn-add fa fa-times" data-bh-func="ClearSettingRandomSeed"></button>
 </div>
 {{/joinMembers}}

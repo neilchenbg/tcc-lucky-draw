@@ -148,6 +148,19 @@ define('view/app',
         }
       },
 
+      _evClearSettingRandomSeed: function(e, $button) {
+        var context = this,
+            model = context.getModelInstance(),
+            $form = $button.parents('[data-bh-entry="randomSeedForm"]').eq(0),
+            $field = $('[data-bh-entry="randomSeed"]', $form);
+
+        if ($form.length > 0 && $field.length > 0) {
+          $field.val('');
+        } else {
+          _traceError('Unable to find form field!', {}, '_evClearSettingRandomSeed');
+        }
+      },
+
       _evNominees: function(e, $button) {
         var context = this,
             model = context.getModelInstance(),
@@ -203,6 +216,7 @@ define('view/app',
 
       _evToggleSetting: function(e, $button) {
         var context = this,
+            model = context.getModelInstance(),
             $setting = $('[data-bh-entry="toggleSetting"]', context.el);
 
         $setting.each(function() {
@@ -211,6 +225,8 @@ define('view/app',
               $(this).removeClass('open-setting');
             } else {
               $(this).addClass('open-setting');
+
+              model.trigger('change:joinMembers');
             }
           } else {
             if ($(this).hasClass('active')) {
@@ -289,6 +305,10 @@ define('view/app',
           e.stopPropagation();
           this._evSaveSettingRandomSeed(e, $(e.currentTarget));
         },
+        'click [data-bh-func="ClearSettingRandomSeed"]': function(e) {
+          e.stopPropagation();
+          this._evClearSettingRandomSeed(e, $(e.currentTarget));
+        },
         'click [data-bh-func="Nominees"]': function(e) {
           e.stopPropagation();
           this._evNominees(e, $(e.currentTarget));
@@ -300,6 +320,10 @@ define('view/app',
         'click [data-bh-func="ToggleSetting"]': function(e) {
           e.stopPropagation();
           this._evToggleSetting(e, $(e.currentTarget));
+        },
+        'click .open-setting[data-bh-func="CloseSetting"]': function(e) {
+          e.stopPropagation();
+          $('[data-bh-func="ToggleSetting"]', this.el).trigger('click');
         },
         'click [data-bh-func="SelectLuckyDraw"][data-bh-param-key]': function(e) {
           e.stopPropagation();
