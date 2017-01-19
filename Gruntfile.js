@@ -52,7 +52,9 @@ module.exports = function(grunt) {
           // Mustache
           {src: '<%= dir.vendor %>mustache.js/mustache.min.js', dest: '<%= dir.distVendor %>mustache.min.js'},
           // jQuery
-          {src: '<%= dir.vendor %>jquery/dist/jquery.min.js', dest: '<%= dir.distVendor %>jquery.min.js'}
+          {src: '<%= dir.vendor %>jquery/dist/jquery.min.js', dest: '<%= dir.distVendor %>jquery.min.js'},
+          // chance
+          {src: '<%= dir.vendor %>chance/dist/chance.min.js', dest: '<%= dir.distVendor %>chance.min.js'}
         ]
       }
     },
