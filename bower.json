@@ -4,7 +4,7 @@
   "keywords": [
     "lucky-draw"
   ],
-  "license": "MIT",
+  "license": "UNLICENSED",
   "ignore": [
     "**/.*",
     "node_modules",
