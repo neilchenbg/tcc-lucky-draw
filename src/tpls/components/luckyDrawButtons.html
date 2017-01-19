@@ -1,0 +1,18 @@
+{{#luckyDrawButtons}}
+  {{#show}}
+<div class="lucky-draw">
+    {{#list}}
+  <button class="
+    btn btn-lucky-draw
+    {{#showWinner}}
+      {{#isWinner}}winner{{/isWinner}}
+      {{^isWinner}}failed{{/isWinner}}
+    {{/showWinner}}
+    {{^showWinner}}
+      {{#active}}active{{/active}}
+    {{/showWinner}}
+  "{{^active}} data-bh-func="SelectLuckyDraw" data-bh-param-key="{{key}}"{{/active}}>{{key}}</button>
+    {{/list}}
+</div>
+  {{/show}}
+{{/luckyDrawButtons}}

@@ -1,0 +1,107 @@
+//setting
+.setting {
+  width: 350px;
+  min-height: 100vh;
+  top: 0;
+  right: -350px;
+  bottom: 0;
+  padding: 24px 0 122px;
+  font-size: 1.2rem;
+  background: white;
+  box-shadow: rgba(black,.3) 8px 0 10px inset;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  &.active {
+    right: 0;
+    .random-seed {
+      right: 0;
+    }
+  }
+  .random-seed {
+    width: 350px;
+    right: -350px;
+    bottom: 0;
+    padding: 16px 0;
+    background: lighten(black,90);
+    box-shadow: 8px 3px 10px rgba(black,.3) inset;
+    position: fixed;
+    z-index: 1;
+  }
+  .setting-title {
+    color: lighten(black,70);
+    font-size: 1rem;
+    margin: 0 16px 8px;
+  }
+  .input-add {
+    width: 270px;
+    margin: 8px 4px 8px 16px;
+    padding: 0 8px;
+    vertical-align: middle;
+  }
+  .btn-add {
+    color: white;
+    font-size: 1.4rem;
+    padding: 8px;
+    background: $c-yellow;
+    border: 2px solid $c-brown;
+    border-radius: 5px;
+    box-shadow: 1px 2px 0 $c-brown;
+    vertical-align: middle;
+  }
+  .member-list {
+    margin-top: 16px;
+    .item {
+      border-top: 1px solid rgba(black,.2);
+      position: relative;
+      & + .item {
+        
+      }
+    }
+  }
+  .checkbox-name {
+    top: 0;
+    right: 16px;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    &:checked {
+      & + .label-name {
+        color: black;
+        background: none;
+      }
+    }
+  }
+  .label-name {
+    color: rgba(black,.3);
+    padding: 8px 50px 8px 16px;
+    background: rgba(black,.1);
+    display: block;
+  }
+  .btn-del {
+    color: rgba(black,.3);
+    font-size: 1rem;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(white,.5);
+    position: absolute;
+  }
+  .text-empty {
+    color: lighten(black,70);
+    font-size: 1rem;
+    margin: 24px 16px;
+  }
+  .winner-random {
+    color: lighten(black,50);
+    padding: 16px 80px 16px 16px;
+    border-top: 1px solid rgba(black,.2);
+    position: relative;
+    .switch {
+      top: 18px;
+      right: 16px;
+      position: absolute;
+    }
+  }
+}

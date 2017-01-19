@@ -1,0 +1,71 @@
+.spotlight {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(black,.7);
+  position: absolute;
+  z-index: 99;
+  .item {
+    width: 300px;
+    height: 300px;
+    border-radius: 100%;
+    background: lighten($c-yellow,30);
+    //mix-blend-mode: screen;
+    position: absolute;
+    &:nth-child(1) {
+      top: -50px;
+      left: 50%;
+      margin-left: -150px;
+      animation: spotlight_motion_top 2.1s linear infinite;
+    }
+    &:nth-child(2) {
+      top: 50%;
+      left: -50px;
+      animation: spotlight_motion_left 2s ease-in infinite;
+    }
+    &:nth-child(3) {
+      top: 50%;
+      right: -50px;
+      animation: spotlight_motion_right 2.2s ease-out infinite;
+    }
+  }
+}
+@keyframes spotlight_motion_top {
+  0%, 100% {
+    transform: scale(2,2) translate(0,0);
+    opacity: .3;
+    filter: blur(3px);
+  }
+  49% {
+    transform: scale(1,1) translate(0,300px);
+    opacity: .5;
+    filter: blur(1px);
+  }
+}
+@keyframes spotlight_motion_left {
+  0%, 100% {
+    transform: scale(2,2) translate(0,0);
+    opacity: .3;
+    filter: blur(3px);
+  }
+  50% {
+    transform: scale(1,1) translate(400px,-150px);
+    opacity: .5;
+    filter: blur(1px);
+  }
+}
+@keyframes spotlight_motion_right {
+  0%, 100% {
+    transform: scale(2,2) translate(0,0);
+    opacity: .3;
+    filter: blur(3px);
+  }
+  51% {
+    transform: scale(1,1) translate(-400px,-150px);
+    opacity: .5;
+    filter: blur(1px);
+  }
+}

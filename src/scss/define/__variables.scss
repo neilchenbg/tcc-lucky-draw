@@ -1,0 +1,21 @@
+//font
+$font-family: "Ubuntu", sans-serif;
+$font-size: 1.8rem;
+$font-line-height: 1.4;
+$font-family-cursive: "Molle", cursive;
+
+//color
+$c-brown: #744700;
+$c-yellow: #d9940b;
+
+//media query breakpoints
+///desktop
+$screen-xlg-min: 1025px;
+///pad_landscape
+$screen-lg-max: 1024px;
+$screen-lg-min: 769px;
+///pad_portrait
+$screen-md-max: 768px;
+$screen-md-min: 668px;
+///mobile
+$screen-sm-max: 667px;

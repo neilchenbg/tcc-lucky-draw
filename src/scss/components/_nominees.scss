@@ -1,0 +1,30 @@
+.nominees {
+  color: white;
+  text-align: center;
+  width: 500px;
+  top: 320px;
+  left: 50%;
+  margin-left: -250px;
+  padding: 24px 16px 8px;
+  text-shadow: 0 0 10px rgba(black,.5);
+  background: rgba(black,.4);
+  border-radius: 10px;
+  position: absolute;
+  z-index: 1;
+  @include RWD(pad_landscape) {
+    top: 230px;
+  }
+  .text {
+    color: rgba(white,.8);
+    font-weight: 300;
+    @include RWD(pad_landscape) {
+      font-size: 1.5rem;
+    }
+  }
+  .list {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 16px 0;
+    list-style: none;
+  }
+}

@@ -1,0 +1,41 @@
+{{#joinMembers}}
+<div class="setting-title">{{i18n.LABEL_JOIN_MEMBER}}</div>
+<form data-bh-entry="addMemberForm">
+  <input type="text" class="input-add" data-bh-entry="memberName" placeholder="{{i18n.PLACEHOLDER_ADD_MEMBER}}">
+  <button type="button" class="btn-add fa fa-plus" data-bh-func="AddMember"></button>
+</form>
+  {{#hasList}}
+<ul class="member-list">
+    {{#list}}
+  <li class="item">
+    <input type="checkbox" id="member_{{id}}" class="checkbox-name"{{#join}} checked{{/join}}
+      data-bh-func="ToggleJoin"
+      data-bh-param-id="{{id}}"
+    >
+    <label for="member_{{id}}" class="label-name">{{name}}</label>
+    <button type="button" class="btn-icon btn-del fa fa-times"
+      data-bh-func="removeMember"
+      data-bh-param-id="{{id}}"
+    ></button>
+  </li>
+    {{/list}}
+</ul>
+  {{/hasList}}
+  {{^hasList}}
+<p class="text-empty">{{i18n.TEXT_MEMBER_EMPTY}}</p>
+  {{/hasList}}
+<div class="winner-random">
+  {{i18n.LABEL_SETTING_RANDOM}}
+  <div class="switch">
+    <input type="checkbox" class="checkbox-switch"{{^settingRandom}} checked{{/settingRandom}}
+      data-bh-func="ToogleSettingRandom"
+    >
+    <label class="slide"></label>
+  </div>
+</div>
+<div class="random-seed" data-bh-entry="randomSeedForm">
+  <div class="setting-title">{{i18n.LABEL_RANDOM_SEED}}</div>
+  <input type="text" class="input-add" placeholder="{{i18n.PLACEHOLDER_RANDOM_SEED}}" value="{{settingRandomSeed}}" data-bh-entry="randomSeed">
+  <button type="button" class="btn-add fa fa-check" data-bh-func="SaveSettingRandomSeed"></button>
+</div>
+{{/joinMembers}}

@@ -1,0 +1,96 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background: url("../images/bg.png") no-repeat center bottom;
+  background-size: auto 100%;
+  transition: transform .3s ease-in-out;
+  overflow: hidden;
+  position: relative;
+  @include RWD(desktop) {
+    background-size: 100% auto;
+  }
+  &.open-setting {
+    transform: translate(-350px,0);
+    &:after {
+      content: "\0020";
+      width: 100%;
+      height: 100%;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(black,.6);
+      position: absolute;
+      z-index: 1;
+    }
+  }
+}
+.title {
+  width: 100%;
+  top: 20px;
+  left: 0;
+  position: absolute;
+  @include RWD(pad_landscape) {
+    width: 60%;
+    top: 10px;
+    left: 50px;
+  }
+  .image {
+    width: 100%;
+  }
+  .year {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    top: 77px;
+    right: 190px;
+    text-shadow: 4px 4px rgba($c-brown,.45);
+    transition: none;
+    position: absolute;
+    @include RWD(pad_landscape) {
+      top: 57px;
+      right: 140px;
+    }
+  }
+  .star {
+    &:nth-child(1) {
+      top: 50px;
+      left: 60px;
+    }
+    &:nth-child(2) {
+      top: 90px;
+      left: 260px;
+      animation-delay: 4s;
+    }
+    &:nth-child(3) {
+      top: 160px;
+      left: 380px;
+      animation-delay: 2s;
+    }
+    &:nth-child(4) {
+      top: 300px;
+      right: 240px;
+      animation-delay: 8s;
+    }
+    &:nth-child(5) {
+      top: 175px;
+      right: 70px;
+      animation-delay: 6s;
+    }
+  }
+}
+.trophy {
+  width: 130%;
+  top: 45%;
+  left: -50px;
+  transition: none;
+  position: absolute;
+  @include RWD(pad_landscape) {
+    top: 10%;
+    right: -350px;
+    left: auto;
+  }
+  .image {
+    width: 100%;
+  }
+}

@@ -1,0 +1,80 @@
+//nominees
+.btn-nominees {
+  width: 437px;
+  height: 142px;
+  top: 50%;
+  left: 50%;
+  margin: -71px 0 0 -218px;
+  font-size: 4rem;
+  line-height: 142px;
+  background-image: url("../images/btn.png");
+  position: absolute;
+  @include RWD(pad_landscape) {
+    left: 45%;
+    margin-left: -350px;
+  }
+}
+
+//lucky draw
+.btn-lucky-draw {
+  width: 120px;
+  margin: 0 10px;
+  font-size: 3.2rem;
+  line-height: 122px;
+  background-image: url("../images/btn-circle.png");
+  background-size: 100% auto;
+  &:after {
+    content: "\0020";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 100%;
+    transition: all .3s ease-in-out;
+    opacity: 0;
+    position: absolute;
+  }
+  &.active, &.winner, &.failed {
+    &:after {
+      opacity: .5;
+    }
+  }
+  &.active {
+    filter: grayscale(.7) blur(1px);
+    &:after {
+      box-shadow: 0 0 30px $c-yellow;
+      background: $c-yellow;
+      //mix-blend-mode: multiply;
+    }
+  }
+  &.winner {
+    transform: scale(1.1,1.1);
+    &:after {
+      box-shadow: 0 0 30px white;
+      background: white;
+      //mix-blend-mode: overlay;
+    }
+  }
+  &.failed {
+    transform: scale(.7,.7);
+    filter: grayscale(.5) blur(3px);
+    opacity: .7;
+    &:after {
+      box-shadow: 0 0 20px black;
+      background: black;
+      //mix-blend-mode: multiply;
+    }
+  }
+}
+
+//function
+.btn-reload {
+  top: 0;
+  left: 0;
+}
+.btn-setting {
+  top: 0;
+  right: 0;
+}

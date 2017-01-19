@@ -1,0 +1,32 @@
+*, body {
+  font: #{$font-size}/#{$font-line-height} $font-family;
+  letter-spacing: 1px;
+  box-sizing: border-box;
+  transition: all .3s ease-in-out;
+  outline: none;
+}
+body {
+  overflow: hidden;
+  position: relative;
+}
+a {
+  text-decoration: none;
+}
+::selection {
+  text-shadow: none;
+}
+.clearfix {
+  zoom: 1;
+  &:before, &:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden;
+  }
+  &:after {
+    clear: both;
+  }
+}
+.hide {
+  display: none;
+}
