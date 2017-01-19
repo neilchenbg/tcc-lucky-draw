@@ -318,6 +318,10 @@ define('view/app',
           e.stopPropagation();
           this._evToggleSetting(e, $(e.currentTarget));
         },
+        'click .open-setting[data-bh-func="CloseSetting"]': function(e) {
+          e.stopPropagation();
+          $('[data-bh-func="ToggleSetting"]', this.el).trigger('click');
+        },
         'click [data-bh-func="SelectLuckyDraw"][data-bh-param-key]': function(e) {
           e.stopPropagation();
           this._evSelectLuckyDraw(e, $(e.currentTarget));
