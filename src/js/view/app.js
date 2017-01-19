@@ -1,6 +1,6 @@
 define('view/app',
   [
-    'inc', 'bh/view/base', 'bh/util/log', 'services/ui', 'services/member', 'services/setting',
+    'inc', 'bh/view/base', 'bh/util/log', 'services/ui', 'services/member', 'services/setting', 'services/random',
     'require-i18n!nls/view.app',
     'require-text!tpls/app.html',
     'require-text!tpls/components/joinMembers.html',
@@ -9,7 +9,7 @@ define('view/app',
     'require-text!tpls/components/nominees.html'
   ],
   function(
-    Inc, BhViewBase, BhUtilLog, ServiceUi, ServiceMember, ServiceSetting,
+    Inc, BhViewBase, BhUtilLog, ServiceUi, ServiceMember, ServiceSetting, ServiceRandom,
     I18n,
     htmlMain,
     htmlJoinMembers,
@@ -28,6 +28,7 @@ define('view/app',
         return {
           i18n: I18n,
           settingRandom: ServiceSetting.get('random'),
+          settingRandomSeed: ServiceSetting.get('randomSeed'),
           joinMembers: {
             hasList: ServiceMember.hasList(),
             list: ServiceMember.getList()
@@ -121,6 +122,30 @@ define('view/app',
         var context = this,
             model = context.getModelInstance();
         ServiceSetting.set('random', $button.prop('checked') ? false : true);
+        model.set('settingRandom', ServiceSetting.get('random'));
+      },
+
+      _evSaveSettingRandomSeed: function(e, $button) {
+        var context = this,
+            model = context.getModelInstance(),
+            $form = $button.parents('[data-bh-entry="randomSeedForm"]').eq(0),
+            $field = $('[data-bh-entry="randomSeed"]', $form);
+
+        if ($form.length > 0 && $field.length > 0) {
+          if ($field.val() != '') {
+            var seed = $field.val() + '-' + new Date().getTime();
+
+            ServiceSetting.set('randomSeed', seed);
+            ServiceRandom.setSeed(seed);
+            ServiceUi.showAlert(I18n.SUCCESS_EDIT_RANDOM_SEED);
+
+            model.set('settingRandomSeed', ServiceSetting.get('randomSeed'));
+          } else {
+            ServiceUi.showAlert(I18n.ERROR_EDIT_RANDOM_SEED);
+          }
+        } else {
+          _traceError('Unable to find form field!', {}, '_evSaveSettingRandomSeed');
+        }
       },
 
       _evNominees: function(e, $button) {
@@ -260,6 +285,10 @@ define('view/app',
           e.stopPropagation();
           this._evToggleSettingRandom(e, $(e.currentTarget));
         },
+        'click [data-bh-func="SaveSettingRandomSeed"]': function(e) {
+          e.stopPropagation();
+          this._evSaveSettingRandomSeed(e, $(e.currentTarget));
+        },
         'click [data-bh-func="Nominees"]': function(e) {
           e.stopPropagation();
           this._evNominees(e, $(e.currentTarget));
@@ -299,6 +328,10 @@ define('view/app',
 
         context.listenTo(model, 'change:nominees', function() {
           context.renderComponent('nominees');
+        });
+
+        context.listenTo(model, 'change:settingRandomSeed', function() {
+          context.renderComponent('joinMembers');
         });
 
         context

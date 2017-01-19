@@ -5,8 +5,8 @@ define('services/random',
 
     var _instance = new Chance(ServiceSetting.get('randomSeed'));
 
-    var _defaults = {
-      random: true
+    var setSeed = function(seed) {
+      _instance = new Chance(seed);
     };
 
     var getInteger = function(min, max) {
@@ -29,6 +29,7 @@ define('services/random',
     };
 
     return {
+      setSeed: setSeed,
       getInteger: getInteger,
       shuffleArray: shuffleArray
     };

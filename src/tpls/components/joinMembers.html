@@ -1,7 +1,7 @@
 {{#joinMembers}}
-<div class="setting-title">參加人員</div>
+<div class="setting-title">{{i18n.LABEL_JOIN_MEMBER}}</div>
 <form data-bh-entry="addMemberForm">
-  <input type="text" class="input-add" data-bh-entry="memberName" placeholder="一位南極住民">
+  <input type="text" class="input-add" data-bh-entry="memberName" placeholder="{{i18n.PLACEHOLDER_ADD_MEMBER}}">
   <button type="button" class="btn-add fa fa-plus" data-bh-func="AddMember"></button>
 </form>
   {{#hasList}}
@@ -32,5 +32,10 @@
     >
     <label class="slide"></label>
   </div>
+</div>
+<div class="random-seed" data-bh-entry="randomSeedForm">
+  <div class="setting-title">{{i18n.LABEL_RANDOM_SEED}}</div>
+  <input type="text" class="input-add" placeholder="{{i18n.PLACEHOLDER_RANDOM_SEED}}" value="{{settingRandomSeed}}" data-bh-entry="randomSeed">
+  <button type="button" class="btn-add fa fa-check" data-bh-func="SaveSettingRandomSeed"></button>
 </div>
 {{/joinMembers}}
