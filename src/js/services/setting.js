@@ -6,7 +6,8 @@ define('services/setting',
     var _storage = Store2.namespace('_setting');
 
     var _defaults = {
-      random: true
+      random: true,
+      randomSeed: 'campuscruiser'
     };
 
     var get = function(key) {

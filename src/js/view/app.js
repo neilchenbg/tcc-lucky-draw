@@ -5,7 +5,7 @@ define('view/app',
     'require-text!tpls/app.html',
     'require-text!tpls/components/joinMembers.html',
     'require-text!tpls/components/luckyDrawButtons.html',
-    'require-text!tpls/components/nominateMembers.html',
+    'require-text!tpls/components/nomineesMembers.html',
     'require-text!tpls/components/nominees.html'
   ],
   function(
@@ -36,7 +36,7 @@ define('view/app',
             animate: false,
             processing: false
           },
-          nominateMembers: {
+          nomineesMembers: {
             show: false,
             list: []
           },
@@ -126,8 +126,7 @@ define('view/app',
       _evNominees: function(e, $button) {
         var context = this,
             model = context.getModelInstance(),
-            memberCount = ServiceMember.getJoinMemberCount(),
-            buttonMax = 0;
+            memberCount = ServiceMember.getJoinMemberCount();
 
         if (memberCount < 2) {
           ServiceUi.showAlert(I18n.ERROR_JOIN_MEMBER_COUNT);
@@ -137,51 +136,17 @@ define('view/app',
             processing: true
           });
 
-          buttonMax = Math.ceil(memberCount / 2);
-
-          if (buttonMax > Inc.MAX_NOMINEES_COUNT) {
-            buttonMax = Inc.MAX_NOMINEES_COUNT;
-          }
-
-          var joinMemberList = ServiceMember.getJoinMemberList(),
-              nominateMembers = [],
-              nominateDestiny = [],
-              luckyDrawButtons = [],
-              winnerCount = 1;
-
-          for (var i = 0; i < 10; i ++) {
-            nominateDestiny.push(_.clone(joinMemberList).shuffle());
-          }
-
-          nominateDestiny = nominateDestiny.shuffle().slice(0, 1)[0];
-          nominateMembers = nominateDestiny.slice(0, buttonMax);
-
-          if (ServiceSetting.get('random')) {
-            winnerCount = Math.ceil(Math.random() * buttonMax);
-          }
-
-          for (var i = 1; i <= buttonMax; i ++) {
-            if (i <= winnerCount) {
-              luckyDrawButtons.push({isWinner: true, active: false});
-            } else {
-              luckyDrawButtons.push({isWinner: false, active: false});
-            }
-          }
-
-          luckyDrawButtons.shuffle();
-
-          for (var i = 0, length = luckyDrawButtons.length; i < length; i ++) {
-            luckyDrawButtons[i].key = i + 1;
-          }
+          var nomineesMembers = ServiceMember.getNomineesMembers(),
+              luckyDrawButtons = ServiceMember.getLuckyDrawButtons();
 
           setTimeout(function() {
             model.set('nominees', {
               animate: false,
               processing: true
             });
-            model.set('nominateMembers', {
+            model.set('nomineesMembers', {
               show: true,
-              list: nominateMembers
+              list: nomineesMembers
             });
             model.set('luckyDrawButtons', {
               active: 0,
@@ -200,7 +165,7 @@ define('view/app',
           animate: false,
           processing: false
         });
-        model.set('nominateMembers', {
+        model.set('nomineesMembers', {
           show: false,
           list: []
         });
@@ -324,8 +289,8 @@ define('view/app',
           context.renderComponent('joinMembers');
         });
 
-        context.listenTo(model, 'change:nominateMembers', function() {
-          context.renderComponent('nominateMembers');
+        context.listenTo(model, 'change:nomineesMembers', function() {
+          context.renderComponent('nomineesMembers');
         });
 
         context.listenTo(model, 'change:luckyDrawButtons', function() {
@@ -340,12 +305,12 @@ define('view/app',
           ._setMainHtml(htmlMain)
           ._setComponent('joinMembers', htmlJoinMembers)
           ._setComponent('luckyDrawButtons', htmlLuckyDrawButtons)
-          ._setComponent('nominateMembers', htmlNominateMembers)
+          ._setComponent('nomineesMembers', htmlNominateMembers)
           ._setComponent('nominees', htmlNominees)
           .render()
           .renderComponent('joinMembers')
           .renderComponent('luckyDrawButtons')
-          .renderComponent('nominateMembers')
+          .renderComponent('nomineesMembers')
           .renderComponent('nominees');
       }
     });

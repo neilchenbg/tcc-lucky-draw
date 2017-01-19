@@ -1,6 +1,6 @@
 define('services/member',
-  ['store2'],
-  function(Store2) {
+  ['inc', 'jquery', 'store2', 'services/random', 'services/setting'],
+  function(Inc, $, Store2, ServiceRandom, ServiceSetting) {
     "use strict";
 
     if (!Store2.has('_member')) {
@@ -15,30 +15,6 @@ define('services/member',
 
     var getList = function() {
       return _storage;
-    };
-
-    var getJoinMemberList = function() {
-      var newList = [];
-
-      for (var i = 0, length = _storage.length; i < length; i ++) {
-        if (_storage[i].join) {
-          newList.push(_storage[i]);
-        }
-      }
-
-      return newList;
-    };
-
-    var getJoinMemberCount = function() {
-      var count = 0;
-
-      for (var i = 0, length = _storage.length; i < length; i ++) {
-        if (_storage[i].join) {
-          count ++;
-        }
-      }
-
-      return count;
     };
 
     var get = function(id) {
@@ -98,16 +74,100 @@ define('services/member',
       return _storage.length > 0;
     };
 
+    var getJoinMemberList = function() {
+      var newList = [];
+
+      for (var i = 0, length = _storage.length; i < length; i ++) {
+        if (_storage[i].join) {
+          newList.push(_storage[i]);
+        }
+      }
+
+      return newList;
+    };
+
+    var getJoinMemberCount = function() {
+      var count = 0;
+
+      for (var i = 0, length = _storage.length; i < length; i ++) {
+        if (_storage[i].join) {
+          count ++;
+        }
+      }
+
+      return count;
+    };
+    // 取得入圍人數
+    var getNomineesCount = function() {
+      var joinMemberCount = getJoinMemberCount(),
+          nomineesCount = 0;
+
+      nomineesCount = Math.ceil(joinMemberCount / 2);
+
+      if (nomineesCount > Inc.MAX_NOMINEES_COUNT) {
+        nomineesCount = Inc.MAX_NOMINEES_COUNT;
+      }
+
+      return nomineesCount;
+    };
+    // 取得入圍人列表
+    var getNomineesMembers = function() {
+      var joinMemberList = getJoinMemberList(),
+          nomineesCount = getNomineesCount(),
+          nomineesMembers = [],
+          nomineesDestiny = [];
+
+      for (var i = 0; i < 10; i ++) {
+        nomineesDestiny.push(ServiceRandom.shuffleArray(_.clone(joinMemberList)));
+      }
+
+      var start = ServiceRandom.getInteger(0, 9),
+          end = start + 1;
+
+      nomineesDestiny = nomineesDestiny.slice(start, end)[0];
+      nomineesMembers = nomineesDestiny.slice(0, nomineesCount);
+
+      return nomineesMembers;
+    };
+    // 取得抽獎按鈕
+    var getLuckyDrawButtons = function() {
+      var nomineesCount = getNomineesCount(),
+          winnerCount = 1,
+          luckyDrawButtons = [];
+
+      if (ServiceSetting.get('random')) {
+        winnerCount = ServiceRandom.getInteger(1, nomineesCount);
+      }
+
+      for (var i = 1; i <= nomineesCount; i ++) {
+        if (i <= winnerCount) {
+          luckyDrawButtons.push({isWinner: true, active: false});
+        } else {
+          luckyDrawButtons.push({isWinner: false, active: false});
+        }
+      }
+
+      luckyDrawButtons = ServiceRandom.shuffleArray(luckyDrawButtons);
+
+      for (var i = 0, length = luckyDrawButtons.length; i < length; i ++) {
+        luckyDrawButtons[i].key = i + 1;
+      }
+
+      return luckyDrawButtons;
+    };
+
     return {
       getList: getList,
-      getJoinMemberList: getJoinMemberList,
-      getJoinMemberCount: getJoinMemberCount,
       get: get,
       add: add,
       edit: edit,
       remove: remove,
       clear: clear,
-      hasList: hasList
+      hasList: hasList,
+      getJoinMemberList: getJoinMemberList,
+      getJoinMemberCount: getJoinMemberCount,
+      getNomineesMembers: getNomineesMembers,
+      getLuckyDrawButtons: getLuckyDrawButtons
     };
   }
 );
