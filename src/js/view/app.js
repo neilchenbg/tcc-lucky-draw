@@ -216,6 +216,7 @@ define('view/app',
 
       _evToggleSetting: function(e, $button) {
         var context = this,
+            model = context.getModelInstance(),
             $setting = $('[data-bh-entry="toggleSetting"]', context.el);
 
         $setting.each(function() {
@@ -224,6 +225,8 @@ define('view/app',
               $(this).removeClass('open-setting');
             } else {
               $(this).addClass('open-setting');
+
+              model.trigger('change:joinMembers');
             }
           } else {
             if ($(this).hasClass('active')) {
