@@ -148,6 +148,19 @@ define('view/app',
         }
       },
 
+      _evClearSettingRandomSeed: function(e, $button) {
+        var context = this,
+            model = context.getModelInstance(),
+            $form = $button.parents('[data-bh-entry="randomSeedForm"]').eq(0),
+            $field = $('[data-bh-entry="randomSeed"]', $form);
+
+        if ($form.length > 0 && $field.length > 0) {
+          $field.val('');
+        } else {
+          _traceError('Unable to find form field!', {}, '_evClearSettingRandomSeed');
+        }
+      },
+
       _evNominees: function(e, $button) {
         var context = this,
             model = context.getModelInstance(),
@@ -288,6 +301,10 @@ define('view/app',
         'click [data-bh-func="SaveSettingRandomSeed"]': function(e) {
           e.stopPropagation();
           this._evSaveSettingRandomSeed(e, $(e.currentTarget));
+        },
+        'click [data-bh-func="ClearSettingRandomSeed"]': function(e) {
+          e.stopPropagation();
+          this._evClearSettingRandomSeed(e, $(e.currentTarget));
         },
         'click [data-bh-func="Nominees"]': function(e) {
           e.stopPropagation();
