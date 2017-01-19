@@ -5,7 +5,7 @@
   top: 0;
   right: -350px;
   bottom: 0;
-  padding: 24px 0;
+  padding: 24px 0 122px;
   font-size: 1.2rem;
   background: white;
   box-shadow: rgba(black,.3) 8px 0 10px inset;
@@ -14,6 +14,19 @@
   position: absolute;
   &.active {
     right: 0;
+    .random-seed {
+      right: 0;
+    }
+  }
+  .random-seed {
+    width: 350px;
+    right: -350px;
+    bottom: 0;
+    padding: 16px 0;
+    background: lighten(black,90);
+    box-shadow: 8px 3px 10px rgba(black,.3) inset;
+    position: fixed;
+    z-index: 1;
   }
   .setting-title {
     color: lighten(black,70);
@@ -22,7 +35,7 @@
   }
   .input-add {
     width: 270px;
-    margin: 8px 8px 8px 16px;
+    margin: 8px 4px 8px 16px;
     padding: 0 8px;
     vertical-align: middle;
   }
@@ -31,8 +44,9 @@
     font-size: 1.4rem;
     padding: 8px;
     background: $c-yellow;
-    border: none;
+    border: 2px solid $c-brown;
     border-radius: 5px;
+    box-shadow: 1px 2px 0 $c-brown;
     vertical-align: middle;
   }
   .member-list {
